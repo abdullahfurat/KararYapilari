@@ -21,6 +21,9 @@ namespace WFA_KararYapilari
         private void Form3_Load(object sender, EventArgs e)
         {
             lblRastgeleKarakterler.Text = rnd.Next(10000000, 100000000).ToString();
+            lblKalanHakkimiz.Text = "5";
+            txtMetinGirisAlani.Enabled = true;
+            btnGirisYap.Enabled = true;
             // Kullanıcı label'da üretilen sayıyı textbox'a girecek, eğer kullanıcı üretilen sayıyı doğru girerse hoşgeldiniz vs. mesaj verdiriniz.
             // Kullanıcı yanlış bir data girişi yaparsa, TextBox temizlenecek, yeni bir sayı üretilecek ve kalan hakkımızdan 1 adet düşürülecek.
             // 5 Hakkımızıda yanlış değerlendirirsek, TextBox temizlenip aktiflik özelliği kapatlılacak
@@ -29,7 +32,30 @@ namespace WFA_KararYapilari
 
         private void btnGirisYap_Click(object sender, EventArgs e)
         {
-            lblRastgeleKarakterler.Text = rnd.Next(10000000, 100000000).ToString();
+            int kalanhak = int.Parse(lblKalanHakkimiz.Text);
+            if (lblRastgeleKarakterler.Text == txtMetinGirisAlani.Text)
+            {
+                MessageBox.Show("Sisteme Başarıyla Giriş yapıldı.");
+                lblKalanHakkimiz.Text = "5";
+            }
+
+            else if (lblRastgeleKarakterler.Text  != txtMetinGirisAlani.Text) {
+
+                lblRastgeleKarakterler.Text = rnd.Next(10000000, 100000000).ToString();
+                txtMetinGirisAlani.Text = "";
+                kalanhak -= 1;
+                lblKalanHakkimiz.Text = kalanhak.ToString();
+                txtMetinGirisAlani.Focus();
+                if(kalanhak==0)
+                {
+                    txtMetinGirisAlani.Text = "";
+                    txtMetinGirisAlani.Enabled = false;
+                    btnGirisYap.Enabled = false;
+                }
+
+            }
         }
+
+
     }
 }
